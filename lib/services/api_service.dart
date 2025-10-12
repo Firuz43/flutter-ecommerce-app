@@ -4,6 +4,7 @@ class ApiService {
   final String baseUrl = "http://localhost:8080/api"; //temporary update later
 
   Future<String> getHello() async {
+    //this one Uri.parse will turn out url to http object
     final url = Uri.parse('$baseUrl/hello');
     final response = await http.get(url);
 
