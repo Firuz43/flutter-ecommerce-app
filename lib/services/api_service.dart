@@ -1,7 +1,7 @@
 import 'package:http/http.dart' as http;
 
 class ApiService {
-  final String baseUrl = "http://localhost:8080/api"; //temporary update later
+  final String baseUrl = "http://10.0.2.2:8080/api"; //temporary update later
 
   Future<String> getHello() async {
     //this one Uri.parse will turn out url to http object
