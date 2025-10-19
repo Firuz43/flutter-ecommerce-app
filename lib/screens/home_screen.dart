@@ -1,5 +1,6 @@
 import 'package:ecommerce_app/models/product.dart';
 import 'package:ecommerce_app/services/api_service.dart';
+import 'package:ecommerce_app/widgets/product_card.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -11,7 +12,6 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   String message = "Loading.."; //Added
-  final api = ApiService(); //Added
   final ApiService apiService = ApiService(); // Added
   late Future<List<Product>> productsFuture;
 
@@ -23,10 +23,10 @@ class _HomeScreenState extends State<HomeScreen> {
     productsFuture = apiService.getProducts(); //Added
   }
 
-  //Added/
+  //Added/  now not using...
   Future<void> loadData() async {
     try {
-      final data = await api.getHello();
+      final data = await apiService.getHello();
       setState(() => message = data);
     } catch (e) {
       setState(() => message = "Error: ${e.toString()}");
@@ -53,12 +53,12 @@ class _HomeScreenState extends State<HomeScreen> {
               return ListView.builder(
                 itemCount: products.length,
                 itemBuilder: (context, index) {
-                  final product = products[index];
-                  return ListTile(
-                    leading: Image.network(product.imageUrl),
-                    title: Text(product.name),
-                    subtitle: Text('\$${product.price.toStringAsFixed(2)}'),
-                  );
+                  return ProductCard(product: products[index]);
+                  // return ListTile(
+                  //   leading: Image.network(product.imageUrl),
+                  //   title: Text(product.name),
+                  //   subtitle: Text('\$${product.price.toStringAsFixed(2)}'),
+                  // );
                 },
               );
             }
