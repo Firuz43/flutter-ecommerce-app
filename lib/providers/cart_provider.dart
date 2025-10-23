@@ -18,7 +18,7 @@ class CartProvider extends ChangeNotifier {
       _items.fold(0.0, (sum, item) => sum + item.product.price * item.quantity);
 
   void addToCart(Product product) {
-    final index = _items.indexWhere((it) => it.product.id == product.id);
+    final index = _items.indexWhere((item) => item.product.id == product.id);
     if (index >= 0) {
       _items[index].quantity += 1;
     } else {
@@ -28,7 +28,7 @@ class CartProvider extends ChangeNotifier {
   }
 
   void removeFromCart(Product product) {
-    _items.removeWhere((it) => it.product.id == product.id);
+    _items.removeWhere((item) => item.product.id == product.id);
     notifyListeners();
   }
 
@@ -38,14 +38,15 @@ class CartProvider extends ChangeNotifier {
   }
 
   void updateQuantity(Product product, int quantity) {
-    final index = _items.indexWhere((it) => it.product.id == product.id);
+    final index = _items.indexWhere((item) => item.product.id == product.id);
+
     if (index >= 0) {
       if (quantity <= 0) {
         removeFromCart(product);
+      } else {
+        _items[index].quantity = quantity;
+        notifyListeners();
       }
-    } else {
-      _items[index].quantity = quantity;
-      notifyListeners();
     }
   }
 }

@@ -1,7 +1,10 @@
 import 'package:ecommerce_app/models/product.dart';
+import 'package:ecommerce_app/providers/cart_provider.dart';
+import 'package:ecommerce_app/screens/cart_screen.dart';
 import 'package:ecommerce_app/services/api_service.dart';
 import 'package:ecommerce_app/widgets/product_card.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -38,6 +41,42 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
         appBar: AppBar(
           title: const Text("E-Commerce App"),
+          centerTitle: true,
+          actions: [
+            Consumer<CartProvider>(
+              builder: (context, cart, child) {
+                return Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    IconButton(
+                      icon: const Icon(Icons.shopping_cart),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (_) => const CartScreen()),
+                        );
+                      },
+                    ),
+                    if (cart.totalItems > 0)
+                      Positioned(
+                        right: 6,
+                        top: 8,
+                        child: Container(
+                          padding: const EdgeInsets.all(4),
+                          decoration: const BoxDecoration(
+                              color: Colors.red, shape: BoxShape.circle),
+                          child: Text(
+                            cart.totalItems.toString(),
+                            style: const TextStyle(
+                                color: Colors.white, fontSize: 12),
+                          ),
+                        ),
+                      )
+                  ],
+                );
+              },
+            )
+          ],
         ),
         body: FutureBuilder<List<Product>>(
           future: productsFuture,

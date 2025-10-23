@@ -1,5 +1,7 @@
 import 'package:ecommerce_app/models/product.dart';
+import 'package:ecommerce_app/providers/cart_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ProductDetailScreen extends StatelessWidget {
   final Product product;
@@ -63,6 +65,8 @@ class ProductDetailScreen extends StatelessWidget {
               Center(
                 child: ElevatedButton.icon(
                   onPressed: () {
+                    Provider.of<CartProvider>(context, listen: false)
+                        .addToCart(product);
                     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                       content: Text("${product.name} added to cart!"),
                     ));
