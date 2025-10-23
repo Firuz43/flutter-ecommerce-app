@@ -66,7 +66,7 @@ class CartScreen extends StatelessWidget {
                               const SnackBar(
                                   content: Text('Order placed (demo)')));
                         },
-                        child: const Text('Checkout'),
+                        child: const Text('Checkout'), //
                       ),
                     ],
                   ),
