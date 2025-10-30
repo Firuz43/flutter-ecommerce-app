@@ -21,7 +21,7 @@ class ProductDetailScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              //Product Image
+              //Product Image/
               ClipRRect(
                 borderRadius: BorderRadius.circular(12),
                 child: Image.network(
